@@ -40,7 +40,7 @@ var daq_server = net.createServer(function(socket) {
 		console.log(data.toString())
 
 		if(client_socket != null)
-			client_socket.emit('data', {'data': data.toStri()})
+			client_socket.emit('data', {'data': data.toStri80()})
 
 	})
 
@@ -50,5 +50,5 @@ var daq_server = net.createServer(function(socket) {
 })
 
 
-app.listen(80)
+app.listen(8080)
 daq_server.listen(8090)
