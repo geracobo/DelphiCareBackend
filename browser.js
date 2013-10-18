@@ -14,7 +14,7 @@ function updateCanvas(y)
 }
 
 
-var socket = io.connect('http://localhost:8070');
+var socket = io.connect('http://162.243.55.207:8070');
 socket.on('data', function (data) {
 	updateCanvas(data.data)
 })
