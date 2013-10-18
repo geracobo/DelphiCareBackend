@@ -50,5 +50,5 @@ var daq_server = net.createServer(function(socket) {
 })
 
 
-app.listen(8080)
+app.listen(80)
 daq_server.listen(8090)
