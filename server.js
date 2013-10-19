@@ -55,7 +55,7 @@ var daq_server = net.createServer(function(socket) {
 		client_socket.emit('data', {'data': data.toString()})
 	})
 
-	socket.on('error' function(error) {
+	socket.on('error', function(error) {
 		console.log(error)
 	})
 
