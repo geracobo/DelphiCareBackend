@@ -44,7 +44,7 @@ app.get('/socket.io.js', function(req, res){
 
 client_socket = null
 io.sockets.on('connection', function (socket) {
-	socket.setEncoding('utf8')
+	socket.setEncoding('ascii')
 	client_socket = socket
 })
 
