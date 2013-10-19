@@ -56,7 +56,7 @@ var daq_server = net.createServer(function(socket) {
 	})
 
 	socket.on('error', function(error) {
-		console.log(error)
+		// No hacemos nada. Probablmente fue una desconeccion.
 	})
 
 
