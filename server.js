@@ -52,15 +52,11 @@ var daq_server = net.createServer(function(socket) {
 		if(client_socket == null)
 			return
 
-		try
-		{
-			client_socket.emit('data', {'data': data.toString()})
-		}
-		catch(err)
-		{
-			
-		}
+		client_socket.emit('data', {'data': data.toString()})
+	})
 
+	socket.on('error' function(error) {
+		console.log(error)
 	})
 
 
