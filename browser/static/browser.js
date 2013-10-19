@@ -18,5 +18,11 @@ SERVER_ADDRESS = '162.243.55.207'
 SERVER_PORT = 8088
 var socket = io.connect('http://'+SERVER_ADDRESS+':'+SERVER_PORT);
 socket.on('data', function (data) {
-	updateCanvas(data.data)
+	datas = data.data.split('\n')
+	for each (var dat in datas)
+	{
+		if(dat == '')
+			continue
+		updateCanvas(dat)
+	}
 })
