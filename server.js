@@ -3,26 +3,25 @@ var net = require('net')
 var fs = require('fs')
 
 var io = require('socket.io').listen(8088)
-
 var app = express()
 
 
 app.get('/', function(req, res) {
-	var body = fs.readFileSync('./browser.html')
+	var body = fs.readFileSync('./browser/browser.html')
 
 	res.setHeader('Content-Type', 'text/html')
 	res.setHeader('Content-Length', body.length)
 	res.end(body)
 })
 app.get('/browser.js', function(req, res){
-	var body = fs.readFileSync('./browser.js')
+	var body = fs.readFileSync('./browser/browser.js')
 
 	res.setHeader('Content-Type', 'text/javascript')
 	res.setHeader('Content-Length', body.length)
 	res.end(body)
 })
 app.get('/socket.io.js', function(req, res){
-	var body = fs.readFileSync('./socket.io.js')
+	var body = fs.readFileSync('./browser/socket.io.js')
 
 	res.setHeader('Content-Type', 'text/javascript')
 	res.setHeader('Content-Length', body.length)
