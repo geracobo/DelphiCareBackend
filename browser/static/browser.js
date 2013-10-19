@@ -13,8 +13,10 @@ function updateCanvas(y)
 	ctx.fillRect (ctx.canvas.width-1, y, 1, 1);
 }
 
-
-var socket = io.connect('http://162.243.55.207:8088');
+SERVER_ADDRESS = '162.243.55.207'
+//SERVER_ADDRESS = 'localhost'
+SERVER_PORT = 8088
+var socket = io.connect('http://'+SERVER_ADDRESS+':'+SERVER_PORT);
 socket.on('data', function (data) {
 	updateCanvas(data.data)
 })

@@ -13,6 +13,19 @@ app.get('/', function(req, res) {
 	res.setHeader('Content-Length', body.length)
 	res.end(body)
 })
+app.get('/static/:static', function(req, res) {
+	if(!fs.existsSync('./browser/static/'+req.params['static']))
+	{
+		res.end('404')
+		return
+	}
+
+	var body = fs.readFileSync('./browser/static/'+req.params['static'])
+
+	res.setHeader('Content-Type', 'text/javascript')
+	res.setHeader('Content-Length', body.length)
+	res.end(body)
+})
 app.get('/browser.js', function(req, res){
 	var body = fs.readFileSync('./browser/browser.js')
 
