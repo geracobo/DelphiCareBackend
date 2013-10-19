@@ -49,10 +49,17 @@ io.sockets.on('connection', function (socket) {
 
 var daq_server = net.createServer(function(socket) {
 	socket.on('data', function(data) {
-		console.log(data.toString())
+		if(client_socket == null)
+			return
 
-		if(client_socket != null)
+		try
+		{
 			client_socket.emit('data', {'data': data.toString()})
+		}
+		catch(err)
+		{
+			
+		}
 
 	})
 
