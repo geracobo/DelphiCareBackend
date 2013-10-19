@@ -19,10 +19,10 @@ SERVER_PORT = 8088
 var socket = io.connect('http://'+SERVER_ADDRESS+':'+SERVER_PORT);
 socket.on('data', function (data) {
 	datas = data.data.split('\n')
-	for each (var dat in datas)
+	for(var i=0; i<datas.length; i++)
 	{
-		if(dat == '')
+		if(datas[i] == '')
 			continue
-		updateCanvas(dat)
+		updateCanvas(datas[i])
 	}
 })
