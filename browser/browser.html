@@ -14,8 +14,18 @@
 		<h2 id="SubTitle">Tecnologia Biotelemetrica al Alcance.</h2>
 	</div>
 
-	<canvas id="Canvas" width=600 height=400>
-	</canvas>
+
+	<div id="CanvasBox">
+		<h2>Electrocardiograma</h2>
+		<canvas id="EKGCanvas" width=1000 height=300></canvas>
+		<h2>Oximetro</h2>
+		<canvas id="SpO2Canvas" width=1000 height=300></canvas>
+	</div>
+
+	<div id="GeneralBox">
+		<h1>Datos Generales</h1>
+		<p>% Oxigeno: <span id="SpO2"></span></p>
+	</div>
 
 	<script type="text/javascript" src="static/jquery-2.0.3.js"></script>
 	<script type="text/javascript" src="static/socket.io.js"></script>

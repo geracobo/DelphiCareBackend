@@ -26,20 +26,6 @@ app.get('/static/:static', function(req, res) {
 	res.setHeader('Content-Length', body.length)
 	res.end(body)
 })
-app.get('/browser.js', function(req, res){
-	var body = fs.readFileSync('./browser/browser.js')
-
-	res.setHeader('Content-Type', 'text/javascript')
-	res.setHeader('Content-Length', body.length)
-	res.end(body)
-})
-app.get('/socket.io.js', function(req, res){
-	var body = fs.readFileSync('./browser/socket.io.js')
-
-	res.setHeader('Content-Type', 'text/javascript')
-	res.setHeader('Content-Length', body.length)
-	res.end(body)
-})
 
 
 client_socket = null
@@ -52,7 +38,7 @@ var daq_server = net.createServer(function(socket) {
 		if(client_socket == null)
 			return
 
-		client_socket.emit('data', {'data': data.toString()})
+		io.sockets.emit('data', {'data': data.toString()})
 	})
 
 	socket.on('error', function(error) {

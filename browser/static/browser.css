@@ -45,9 +45,58 @@ body
 }
 
 
-#Canvas
+#EKGCanvas
+{
+	margin: 10px;
+	background-color: black;
+	border: 1px solid black;
+}
+#SpO2Canvas
 {
 	margin: 10px;
 	background-color: white;
 	border: 1px solid black;
+}
+
+#CanvasBox
+{
+	clear: both;
+	float: left;
+
+	width: 1020px;
+}
+#CanvasBox>h2
+{
+	margin-top: 5px;
+	margin-bottom: 0px;
+	margin-left: 10px;
+}
+#CanvasBox>canvas
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 10px;
+}
+
+#GeneralBox
+{
+	float: left;
+
+	width: 400px;
+	height: 200px;
+
+	margin-top: 35px;
+	margin-left: 20px;
+	
+	background-color: white;
+	border: 1px solid black;
+
+	text-align: center;
+
+}
+#GeneralBox>h1
+{
+	width: 100%;
+
+	font-weight: bold;
 }

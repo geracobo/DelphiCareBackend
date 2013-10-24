@@ -1,24 +1,47 @@
-var canvas = document.getElementById('Canvas');
-var ctx = canvas.getContext('2d');
-ctx.fillStyle = "rgb(0, 0, 200)";
+var ekgcanvas = document.getElementById('EKGCanvas')
+var spo2canvas = document.getElementById('SpO2Canvas')
+var ekgctx = ekgcanvas.getContext('2d')
+var spo2ctx = spo2canvas.getContext('2d')
 
-var lasty = 0
+ekgctx.strokeStyle = '#043BBC';
+spo2ctx.strokeStyle = '#1C00D6';
 
-function updateCanvas(y)
+var ekglasty = 0
+var spo2lasty = 0
+
+
+function updateEKGCanvas(y)
 {
+	var shift = 3
 	// shift everything to the left:
-	var imageData = ctx.getImageData(1, 0, ctx.canvas.width-1, ctx.canvas.height);
-	ctx.putImageData(imageData, 0, 0);
+	var imageData = ekgctx.getImageData(shift, 0, ekgcanvas.width-1, ekgcanvas.height);
+	ekgctx.putImageData(imageData, 0, 0);
 	// now clear the right-most pixels:
-	ctx.clearRect(ctx.canvas.width-1, 0, 1, ctx.canvas.height);
+	ekgctx.clearRect(ekgcanvas.width-shift, 0, shift, ekgcanvas.height);
 
-	ctx.beginPath()
-	ctx.moveTo(canvas.width-1, canvas.height-lasty)
-	ctx.lineTo(canvas.width-1, canvas.height-y)
-	ctx.stroke()
-	lasty = y
-	//ctx.fillRect (ctx.canvas.width-1, y, 1, 1);
+	ekgctx.beginPath()
+	ekgctx.moveTo(ekgcanvas.width-shift, ekgcanvas.height-ekglasty)
+	ekgctx.lineTo(ekgcanvas.width-1, ekgcanvas.height-y)
+	ekgctx.stroke()
+	ekglasty = y
 }
+function updateSpO2Canvas(y)
+{
+	y = y*10-900
+	var shift = 3
+	// shift everything to the left:
+	var imageData = spo2ctx.getImageData(shift, 0, spo2canvas.width-1, spo2canvas.height);
+	spo2ctx.putImageData(imageData, 0, 0);
+	// now clear the right-most pixels:
+	spo2ctx.clearRect(spo2canvas.width-shift, 0, shift, spo2canvas.height);
+
+	spo2ctx.beginPath()
+	spo2ctx.moveTo(spo2canvas.width-shift, spo2canvas.height-spo2lasty)
+	spo2ctx.lineTo(spo2canvas.width-1, spo2canvas.height-y)
+	spo2ctx.stroke()
+	spo2lasty = y
+}
+
 
 SERVER_ADDRESS = '162.243.55.207'
 //SERVER_ADDRESS = 'localhost'
@@ -32,6 +55,23 @@ socket.on('data', function (data) {
 			continue
 
 		obj = JSON.parse(datas[i])
-		updateCanvas(parseInt(obj['ekg']))
+		if(obj['ekg'] != undefined)
+		{
+			updateEKGCanvas(parseInt(obj['ekg']))
+		}
+		if(obj['spo2'] != undefined)
+		{
+			var ox = parseFloat(obj['spo2'])/100
+			ox = 3.4-ox
+			ox = 108.611 - 20.1389*ox - 3.47222*(ox^2)
+
+
+			if(ox < 100)
+				document.getElementById('SpO2').innerHTML = ox
+			else
+				document.getElementById('SpO2').innerHTML = ox
+
+			updateSpO2Canvas(parseInt(obj['spo2']))
+		}
 	}
 })
