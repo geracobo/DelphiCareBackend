@@ -1,3 +1,21 @@
+
+
+
+
+
+
+$(document).ready(function() {
+	//$("#GeneralBox").draggable()
+	//$("#SpO2Box").draggable()
+	//$("#EKGBox").draggable()
+
+	$("#GeneralBox").css("position", "static")
+	impress().init()
+})
+
+
+
+
 var ekgcanvas = document.getElementById('EKGCanvas')
 var spo2canvas = document.getElementById('SpO2Canvas')
 var ekgctx = ekgcanvas.getContext('2d')
@@ -27,7 +45,7 @@ function updateEKGCanvas(y)
 }
 function updateSpO2Canvas(y)
 {
-	y = y*10-900
+	y = y
 	var shift = 3
 	// shift everything to the left:
 	var imageData = spo2ctx.getImageData(shift, 0, spo2canvas.width-1, spo2canvas.height);
@@ -62,7 +80,7 @@ socket.on('data', function (data) {
 		if(obj['spo2'] != undefined)
 		{
 			var ox = parseFloat(obj['spo2'])/100
-			ox = 3.4-ox
+			//ox = 3.4-ox
 			ox = 108.611 - 20.1389*ox - 3.47222*(ox^2)
 
 
@@ -71,7 +89,26 @@ socket.on('data', function (data) {
 			else
 				document.getElementById('SpO2').innerHTML = ox
 
+
 			updateSpO2Canvas(parseInt(obj['spo2']))
+		}
+		if(obj['temp'] != undefined)
+		{
+			document.getElementById('Temp').innerHTML = parseFloat(obj['temp'])
+		}
+
+		if(obj['alarm'] != undefined)
+		{
+			alarm = obj['alarm']
+			if(alarm == "on")
+			{
+				impress().goto(2)
+				$("#GeneralBox").addClass('alarm')
+			}
+			else if (alarm == "off")
+			{
+				$("#GeneralBox").removeClass('alarm')
+			}
 		}
 	}
 })
